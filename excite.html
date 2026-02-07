@@ -6,35 +6,20 @@
     <title>Get Ready...</title>
     <style>
         body {
-            margin: 0; 
-            height: 100vh; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center;
-            /* Using suspense1.jpg as requested */
+            margin: 0; height: 100vh; display: flex; justify-content: center; align-items: center;
             background: url('suspense1.jpg') no-repeat center center/cover;
-            font-family: 'Arial', sans-serif; 
-            overflow: hidden;
+            font-family: 'Arial', sans-serif; overflow: hidden;
         }
         .box {
-            background: rgba(255, 255, 255, 0.9); 
-            padding: 30px; 
-            border-radius: 20px;
-            text-align: center; 
-            width: 300px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            background: rgba(255, 255, 255, 0.9); padding: 30px; border-radius: 20px;
+            text-align: center; width: 300px; box-shadow: 0 10px 25px rgba(0,0,0,0.4);
             border: 2px solid #ff4d6d;
         }
-        h1 { 
-            font-size: 1.3rem; 
-            color: #333; 
-            transition: opacity 0.5s ease; 
-            line-height: 1.5;
-        }
+        h1 { font-size: 1.3rem; color: #333; transition: opacity 0.5s ease; line-height: 1.5; }
     </style>
 </head>
-<body onclick="startSequence()">
-    <audio id="thriller" src="a1.mp3" preload="auto"></audio>
+<body onclick="playA1()">
+    <audio id="audioA1" src="a1.mp3" preload="auto" loop></audio>
 
     <div class="box">
         <h1 id="textDisplay">You’re really excited to see what’s coming next… 😌✨</h1>
@@ -42,30 +27,41 @@
 
     <script>
         let started = false;
-        function startSequence() {
-            if(started) return;
+        const audio = document.getElementById("audioA1");
+
+        // This function handles both the audio and the text timing
+        function playA1() {
+            if (started) return; 
             started = true;
-            
-            // Play Audio (a1.mp3)
-            const audio = document.getElementById("thriller");
-            audio.play().catch(e => console.log("Audio play failed. Ensure file is named a1.mp3"));
-            
-            // Step 1: Wait 5 seconds, then change the text
+
+            // Start Audio
+            audio.play().catch(e => console.log("Audio play blocked"));
+
+            // Start Text Sequence
+            // 1. First line stays for 5 seconds
             setTimeout(() => {
                 const textElem = document.getElementById("textDisplay");
-                textElem.style.opacity = 0; // Smooth fade out
+                textElem.style.opacity = 0; 
                 
+                // 2. Change text to the second line
                 setTimeout(() => {
                     textElem.innerHTML = "So let's go to see what comes! 😉";
-                    textElem.style.opacity = 1; // Smooth fade in
+                    textElem.style.opacity = 1; 
                 }, 500);
 
-                // Step 2: Wait 2.5 seconds after the text changes to redirect to question.html
+                // 3. Wait another 2.5 seconds, then go to the question page
                 setTimeout(() => {
                     window.location.href = "question.html";
                 }, 2500);
+
             }, 5000);
         }
+
+        // Automatic attempt for browsers that allow it
+        window.onload = () => {
+            // Some mobile browsers allow audio if a previous page was interacted with
+            playA1();
+        };
     </script>
 </body>
 </html>
