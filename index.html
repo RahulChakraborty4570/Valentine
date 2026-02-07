@@ -12,7 +12,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: url('suspence.jpg') no-repeat center center/cover;
+            /* Updated filename */
+            background: url('suspense.jpg') no-repeat center center/cover;
             font-family: 'Arial', sans-serif;
             overflow: hidden;
         }
@@ -30,16 +31,9 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body onclick="goToNext()">
-
+<body onclick="window.location.href='excite.html'">
     <div class="box">
         <h1>Tap anywhere to see the surprise 👆✨</h1>
     </div>
-
-    <script>
-        function goToNext() {
-            window.location.href = "excite.html";
-        }
-    </script>
 </body>
 </html>
