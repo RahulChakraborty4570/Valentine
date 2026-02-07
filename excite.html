@@ -14,27 +14,31 @@
         .box {
             background: rgba(255, 255, 255, 0.85);
             padding: 30px; border-radius: 20px; text-align: center;
-            max-width: 80%; cursor: pointer;
+            max-width: 80%; box-shadow: 0 10px 25px rgba(0,0,0,0.4);
         }
-        h1 { font-size: 1.4rem; color: #333; }
+        h1 { font-size: 1.4rem; color: #333; line-height: 1.5; }
     </style>
 </head>
-<body onclick="startSequence()">
-    <audio id="thriller" src="Thriller_-_Cinematic_Background_Music_for_video(256k).mp3"></audio>
+<body>
+    <audio id="thriller" src="Thriller_-_Cinematic_Background_Music_for_video(256k).mp3" autoplay preload="auto"></audio>
 
     <div class="box">
         <h1>You’re really excited to see what’s coming next… 😌✨</h1>
-        <p>Tap to continue</p>
     </div>
 
     <script>
-        let started = false;
-        function startSequence() {
-            if(started) return;
-            started = true;
-            document.getElementById("thriller").play();
-            setTimeout(() => { window.location.href = "question.html"; }, 5000);
-        }
+        window.onload = function() {
+            const audio = document.getElementById("thriller");
+            // Attempt to play immediately
+            audio.play().catch(error => {
+                console.log("Browser blocked autoplay. Tap to play manually.");
+            });
+
+            // Auto-redirect to Page 3 after 6 seconds
+            setTimeout(() => {
+                window.location.href = "question.html";
+            }, 6000);
+        };
     </script>
 </body>
 </html>
